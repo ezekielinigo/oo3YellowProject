@@ -1,4 +1,6 @@
-### Team Yellow Members: Lagapa, Quijano, Santiago 
+## Team Yellow Members: Lagapa, Quijano, Santiago 
+
+### MoneyM8 Money Management Made Easy - An agile and accurate payroll tool
 
 Payroll Manager for SDG8 
 
