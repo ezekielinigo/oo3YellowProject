@@ -1,7 +1,7 @@
-## Team Yellow Members: Lagapa, Quijano, Santiago 
-# Point person : John Wilter C. Lagapa
+# Team Yellow Members: Lagapa, Quijano, Santiago 
 
-### MoneyM8 Money Management Made Easy - An agile and accurate payroll tool
+## MoneyM8 Money Management Made Easy - An agile and accurate payroll tool
+### Point person : John Wilter C. Lagapa
 
 Payroll Manager for SDG8 
 
