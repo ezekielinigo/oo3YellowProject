@@ -1,4 +1,4 @@
-## Team Yellow Members: Lagapa, Quijano, Santiago 
+### Team Yellow Members: Lagapa, Quijano, Santiago 
 
 Payroll Manager for SDG8 
 
