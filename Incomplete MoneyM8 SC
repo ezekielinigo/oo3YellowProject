@@ -1,0 +1,657 @@
+import java.io.*;
+import java.util.*;
+import java.util.UUID;
+import java.util.Scanner;
+
+public class PayrollSystem {
+    private static String username = "";
+
+    // Function to register a new user
+    private static void register() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter username: ");
+        username = scanner.nextLine();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream("users.dat", true);
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+
+            objectOutputStream.writeObject(new User(username, password));
+            System.out.println("User registered successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Function to log in a user
+    private static void login() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.print("Enter username: ");
+            username = scanner.nextLine();
+            System.out.print("Enter password: ");
+            String password = scanner.nextLine();
+
+            try (FileInputStream fileInputStream = new FileInputStream("users.dat");
+                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
+                while (true) {
+                    User user = (User) objectInputStream.readObject();
+                    if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                        System.out.println("Login successful.");
+                        return;
+                    }
+                }
+            } catch (EOFException ignored) {
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("Invalid username or password. Please try again.");
+        }
+    }
+
+    private static void start() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            try {
+                System.out.print("Enter 1 to register, 2 to log in, 3 to exit: ");
+                int userChoice = Integer.parseInt(scanner.nextLine());
+
+                if (userChoice == 1) {
+                    register();
+                } else if (userChoice == 2) {
+                    login();
+                    break;
+                } else if (userChoice == 3) {
+                    System.exit(0);
+                } else {
+                    System.out.println("Please enter a valid choice.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer.");
+            }
+        }
+
+        System.out.println("Welcome to PACMAN (Payroll Automation and Calculation Management Application Network)");
+    }
+
+    // Add Employee
+    private static void addEmployee() {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            try {
+                System.out.print("Enter the number of employees: ");
+                int numEmployees = Integer.parseInt(scanner.nextLine());
+                List<Payroll> payrolls = new ArrayList<>();
+
+                try (FileInputStream fileInputStream = new FileInputStream("named_employees_" + username + ".dat");
+                     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
+                    while (true) {
+                        payrolls = (List<Payroll>) objectInputStream.readObject();
+                    }
+                } catch (EOFException ignored) {
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                for (int i = 0; i < numEmployees; i++) {
+                    System.out.println("\nEmployee #" + (i + 1));
+
+                    // Employee information
+                    boolean nameSimilar = true;
+                    String name = "";
+                    while (nameSimilar) {
+                        System.out.print("Enter employee name: ");
+                        name = scanner.nextLine();
+
+                        for (Payroll payroll : payrolls) {
+                            if (payroll.getName().equals(name)) {
+                                System.out.println("Name " + name + " already in database");
+                                throw new InputMismatchException();
+                            }
+                        }
+
+                        nameSimilar = false;
+                    }
+
+                    String ID = UUID.randomUUID().toString().substring(24);
+                    float salary = 0;
+                    while (true) {
+                        try {
+                            System.out.print("Enter employee monthly salary: ");
+                            salary = Float.parseFloat(scanner.nextLine());
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter a valid float.");
+                        }
+                    }
+
+                    int dependents = 0;
+                    while (true) {
+                        try {
+                            System.out.print("Enter number of dependents: ");
+                            dependents = Integer.parseInt(scanner.nextLine());
+                            break;
+                        } catch (NumberFormatException e) {
+                            System.out.println("Please enter a valid integer.");
+                        }
+                    }
+
+                    // Deductible options
+                    System.out.println("\nChoose deductible options:");
+                    System.out.println("1. SSS");
+                    System.out.println("2. PhilHealth");
+                    System.out.println("3. Pag-IBIG");
+                    System.out.print("Enter comma-separated options: ");
+                    String[] deductibleOptions = scanner.nextLine().split(",");
+                    List<String> validOptions = Arrays.asList("1", "2", "3", "1,2", "1,3", "2,3", "1,2,3");
+
+                    while (!Arrays.stream(deductibleOptions).allMatch(validOptions::contains)) {
+                        System.out.println("Please enter valid comma-separated options.");
+                        System.out.print("Enter comma-separated options: ");
+                        deductibleOptions = scanner.nextLine().split(",");
+                    }
+
+                    // Government deductions
+                    float sss = 0;
+                    float philhealth = 0;
+                    float pagibig = 0;
+                    for (String option : deductibleOptions) {
+                        if (option.equals("1")) {
+                            sss = salary * 0.0363f;
+                        } else if (option.equals("2")) {
+                            philhealth = salary * 0.0275f;
+                        } else if (option.equals("3")) {
+                            pagibig = salary * 0.01f;
+                        }
+                    }
+
+                    float taxableIncome = salary - sss - philhealth - pagibig - (dependents * 250);
+                    float tax;
+                    if (taxableIncome <= 250000) {
+                        tax = 0;
+                    } else if (taxableIncome <= 400000) {
+                        tax = (taxableIncome - 250000) * 0.20f;
+                    } else if (taxableIncome <= 800000) {
+                        tax = 30000 + (taxableIncome - 400000) * 0.25f;
+                    } else if (taxableIncome <= 2000000) {
+                        tax = 130000 + (taxableIncome - 800000) * 0.30f;
+                    } else {
+                        tax = 490000 + (taxableIncome - 2000000) * 0.35f;
+                    }
+
+                    // Net pay
+                    float deductions = sss + philhealth + pagibig + tax;
+                    float netPay = salary - deductions;
+
+                    // Add employee payroll information to the list of payrolls
+                    Payroll payroll = new Payroll(name, ID, salary, dependents, sss, philhealth, pagibig, taxableIncome, tax, deductions, netPay);
+                    payrolls.add(payroll);
+                }
+
+                try (FileOutputStream fileOutputStream = new FileOutputStream("named_employees_" + username + ".dat");
+                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+
+                    objectOutputStream.writeObject(payrolls);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                System.out("Payroll Information:");
+                for (Payroll payroll : payrolls) {
+                    System.out.println(payroll);
+                }
+
+                // Excel file
+                System.out.print("Would you like to save the payroll information to an Excel file? (y/n) ");
+                String saveOption = scanner.nextLine();
+                if (saveOption.equalsIgnoreCase("y")) {
+                    System.out.print("Enter filename: ");
+                    String filename = scanner.nextLine();
+                    try {
+                        FileWriter fileWriter = new FileWriter(filename + ".xlsx");
+                        fileWriter.write("Payroll Information:\n");
+                        for (Payroll payroll : payrolls) {
+                            fileWriter.write(payroll.toString() + "\n");
+                        }
+                        fileWriter.close();
+                        System.out.println("Payroll information saved to " + filename + ".xlsx");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.print("Would you like to calculate another payroll? (y/n) ");
+                    String repeatPayroll = scanner.nextLine();
+                    if (!repeatPayroll.equalsIgnoreCase("y")) {
+                        break;
+                    }
+                } else {
+                    System.out.println("Payroll information not saved.");
+                }
+
+                // Calculate another payroll
+                System.out.print("Would you like to calculate another payroll? (y/n) ");
+                String repeatPayroll = scanner.nextLine();
+                if (!repeatPayroll.equalsIgnoreCase("y")) {
+                    break;
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer.");
+            } catch (InputMismatchException e) {
+                // Restart the loop in case of an invalid employee name
+            }
+        }
+    }
+
+    private static void viewEmployee() {
+        try (FileInputStream fileInputStream = new FileInputStream("named_employees_" + username + ".dat");
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
+            List<Payroll> payrolls;
+            while (true) {
+                payrolls = (List<Payroll>) objectInputStream.readObject();
+                for (Payroll payroll : payrolls) {
+                    System.out.println("\nPayroll Information:");
+                    System.out.println(payroll);
+                }
+            }
+        } catch (EOFException ignored) {
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("No payroll information for user " + username);
+        }
+    }
+
+    private static void removeEmployee() {
+        List<Payroll> newPayrolls = new ArrayList<>();
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter employee name: ");
+        String name = scanner.nextLine();
+
+        try (FileInputStream fileInputStream = new FileInputStream("named_employees_" + username + ".dat");
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
+            List<Payroll> payrolls;
+            while (true) {
+                payrolls = (List<Payroll>) objectInputStream.readObject();
+                boolean needRemove = false;
+                for (Payroll payroll : payrolls) {
+                    if (!payroll.getName().equals(name)) {
+                        newPayrolls.add(payroll);
+                    } else {
+                        needRemove = true;
+                    }
+                }
+
+                if (!needRemove) {
+                    break;
+                }
+            }
+        } catch (EOFException ignored) {
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("No payroll information for user " + username);
+        }
+
+        if (!newPayrolls.isEmpty()) {
+            try (FileOutputStream fileOutputStream = new FileOutputStream("named_employees_" + username + ".dat");
+                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+
+                objectOutputStream.writeObject(newPayrolls);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println("\nPayroll Information:");
+            for (Payroll payroll : newPayrolls) {
+                System.out.println(payroll);
+            }
+        } else {
+            System.out.println("No payroll information found for " + name + ".");
+        }
+    }
+
+    private static void editEmployee() {
+        List<Payroll> payrolls = new ArrayList<>();
+        Payroll payroll = null;
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter employee name: ");
+        String name = scanner.nextLine();
+
+        try (FileInputStream fileInputStream = new FileInputStream("named_employees_" + username + ".dat");
+             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+
+            while (true) {
+                payrolls = (List<Payroll>) objectInputStream.readObject();
+                for (Payroll p : payrolls) {
+                    if (p.getName().equals(name)) {
+                        payroll = p;
+                    }
+                }
+            }
+        } catch (EOFException ignored) {
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (payroll == null) {
+            System.out.println("No payroll information found for " + name + ".");
+            return;
+        }
+
+        float salary = 0;
+        while (true) {
+            try {
+                System.out.print("Enter employee monthly salary: ");
+                salary = Float.parseFloat(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid float.");
+            }
+        }
+
+        int dependents = 0;
+        while (true) {
+            try {
+                System.out.print("Enter number of dependents: ");
+                dependents = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer.");
+            }
+        }
+
+        // Deductible options
+        System.out.println("\nChoose deductible options:");
+        System.out.println("1. SSS");
+        System.out.println("2. PhilHealth");
+        System.out.println("3. Pag-IBIG");
+        System.out.print("Enter comma-separated options: ");
+        String[] deductibleOptions = scanner.nextLine().split(",");
+        List<String> validOptions = Arrays.asList("1", "2", "3", "1,2", "1,3", "2,3", "1,2,3");
+
+        while (!Arrays.stream(deductibleOptions).allMatch(validOptions::contains)) {
+            System.out.println("Please enter valid comma-separated options.");
+            System.out.print("Enter comma-separated options: ");
+            deductibleOptions = scanner.nextLine().split(",");
+        }
+
+        // Government deductions
+        float sss = 0;
+        float philhealth = 0;
+        float pagibig = 0;
+        for (String option : deductibleOptions) {
+            if (option.equals("1")) {
+                sss = salary * 0.0363f;
+            } else if (option.equals("2")) {
+                philhealth = salary * 0.0275f;
+            } else if (option.equals("3")) {
+                pagibig = salary * 0.01f;
+            }
+        }
+
+        float taxableIncome = salary - sss - philhealth - pagibig - (dependents * 250);
+        float tax;
+        if (taxableIncome <= 250000) {
+            tax = 0;
+        } else if (taxableIncome <= 400000) {
+            tax = (taxableIncome - 250000) * 0.20f;
+        } else if (taxableIncome <= 800000) {
+            tax = 30000 + (taxableIncome - 400000) * 0.25f;
+        } else if (taxableIncome <= 2000000) {
+            tax = 130000 + (taxableIncome - 800000) * 0.30f;
+        } else {
+            tax = 490000 + (taxableIncome - 2000000) * 0.35f;
+        }
+
+        // Net pay
+        float deductions = sss + philhealth + pagibig + tax;
+        float netPay = salary - deductions;
+
+        // Update employee payroll information
+        payroll.setSalary(salary);
+        payroll.setDependents(dependents);
+        payroll.setSssContribution(sss);
+        payroll.setPhilHealthContribution(philhealth);
+        payroll.setPagIbigContribution(pagibig);
+        payroll.setTaxableIncome(taxableIncome);
+        payroll.setTax(tax);
+        payroll.setDeductions(deductions);
+        payroll.setNetPay(netPay);
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream("named_employees_" + username + ".dat");
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+
+            objectOutputStream.writeObject(payrolls);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("\nPayroll Information:");
+        for (Payroll p : payrolls) {
+            System.out.println(p);
+        }
+
+        // Excel file
+        System.out.print("Would you like to save the payroll information to an Excel file? (y/n) ");
+        String saveOption = scanner.nextLine();
+        if (saveOption.equalsIgnoreCase("y")) {
+            System.out.print("Enter filename: ");
+            String filename = scanner.nextLine();
+            try {
+                FileWriter fileWriter = new FileWriter(filename + ".xlsx");
+                fileWriter.write("Payroll Information:\n");
+                for (Payroll p : payrolls) {
+                    fileWriter.write(p.toString() + "\n");
+                }
+                fileWriter.close();
+                System.out.println("Payroll information saved to " + filename + ".xlsx");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.print("Would you like to calculate another payroll? (y/n) ");
+            String repeatPayroll = scanner.nextLine();
+            if (!repeatPayroll.equalsIgnoreCase("y")) {
+                break;
+            }
+        } else {
+            System.out.println("Payroll information not saved.");
+        }
+
+        // Calculate another payroll
+        System.out.print("Would you like to calculate another payroll? (y/n) ");
+        String repeatPayroll = scanner.nextLine();
+        if (!repeatPayroll.equalsIgnoreCase("y")) {
+            break;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            try {
+                System.out.print("\nEnter 1 to add employee, 2 to view employee, 3 to remove employee, " +
+                                 "4 to edit employee, 5 to log out: ");
+                int userChoice = Integer.parseInt(scanner.nextLine());
+
+                if (userChoice == 1) {
+                    addEmployee();
+                } else if (userChoice == 2) {
+                    viewEmployee();
+                } else if (userChoice == 3) {
+                    removeEmployee();
+                } else if (userChoice == 4) {
+                    editEmployee();
+                } else if (userChoice == 5) {
+                    System.out.println("Log out successful.");
+                    username = "";
+                    start();
+                } else {
+                    System.out.println("Please enter a valid choice.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer.");
+            }
+        }
+    }
+}
+
+class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String username;
+    private String password;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+}
+
+class Payroll implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private String ID;
+    private float salary;
+    private int dependents;
+    private float sssContribution;
+    private float philHealthContribution;
+    private float pagIbigContribution;
+    private float taxableIncome;
+    private float tax;
+    private float deductions;
+    private float netPay;
+
+    public Payroll(String name, String ID, float salary, int dependents, float sssContribution,
+                   float philHealthContribution, float pagIbigContribution, float taxableIncome,
+                   float tax, float deductions, float netPay) {
+        this.name = name;
+        this.ID = ID;
+        this.salary = salary;
+        this.dependents = dependents;
+        this.sssContribution = sssContribution;
+        this.philHealthContribution = philHealthContribution;
+        this.pagIbigContribution = pagIbigContribution;
+        this.taxableIncome = taxableIncome;
+        this.tax = tax;
+        this.deductions = deductions;
+        this.netPay = netPay;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    public float getSalary() {
+        return salary;
+    }
+
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
+
+    public int getDependents() {
+        return dependents;
+    }
+
+    public void setDependents(int dependents) {
+        this.dependents = dependents;
+    }
+
+    public float getSssContribution() {
+        return sssContribution;
+    }
+
+    public void setSssContribution(float sssContribution) {
+        this.sssContribution = sssContribution;
+    }
+
+    public float getPhilHealthContribution() {
+        return philHealthContribution;
+    }
+
+    public void setPhilHealthContribution(float philHealthContribution) {
+        this.philHealthContribution = philHealthContribution;
+    }
+
+    public float getPagIbigContribution() {
+        return pagIbigContribution;
+    }
+
+    public void setPagIbigContribution(float pagIbigContribution) {
+        this.pagIbigContribution = pagIbigContribution;
+    }
+
+    public float getTaxableIncome() {
+        return taxableIncome;
+    }
+
+    public void setTaxableIncome(float taxableIncome) {
+        this.taxableIncome = taxableIncome;
+    }
+
+    public float getTax() {
+        return tax;
+    }
+
+    public void setTax(float tax) {
+        this.tax = tax;
+    }
+
+    public float getDeductions() {
+        return deductions;
+    }
+
+    public void setDeductions(float deductions) {
+        this.deductions = deductions;
+    }
+
+    public float getNetPay() {
+        return netPay;
+    }
+
+    public void setNetPay(float netPay) {
+        this.netPay = netPay;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + "\n" +
+                "ID: " + ID + "\n" +
+                "Salary: " + salary + "\n" +
+                "Dependents: " + dependents + "\n" +
+                "SSS Contribution: " + sssContribution + "\n" +
+                "PhilHealthContribution: " + philHealthContribution + "\n" +
+                "Pag-IBIG Contribution: " + pagIbigContribution + "\n" +
+                "Taxable Income: " + taxableIncome + "\n" +
+                "Tax: " + tax + "\n" +
+                "Deductions: " + deductions + "\n" +
+                "Net Pay: " + netPay + "\n";
+    }
+}
