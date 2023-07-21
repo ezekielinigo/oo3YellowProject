@@ -32,7 +32,7 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" prefWidth="210.0" text="QUIT">
+            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" onAction="#showRegister" prefWidth="210.0" text="QUIT">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>

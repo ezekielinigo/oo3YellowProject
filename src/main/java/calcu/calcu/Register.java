@@ -11,14 +11,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-public class Register {
-    private Stage mainStage;
-    public void setMainStage(Stage stage){
-        this.mainStage = stage;
+public class Register extends Menu {
+    public void initialize(){
+        // IDK para san to
     }
-
     public void showLogin(ActionEvent e) throws IOException {
-
+        // TBA
     }
 
     /** EXPORT SCREEN **/
@@ -26,9 +24,11 @@ public class Register {
     private TextField username;
     @FXML
     private PasswordField password;
-    public void showExport(ActionEvent e) throws IOException {
-        Account input = new Account(username.getText(),password.getText());
-        if (Account.loadAccount()){
+    public void createAccount(ActionEvent e) throws IOException {
+        account.setUsername(username.getText());
+
+        System.out.println(account.getUsername());
+        if (account.loadAccount()){
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("export.fxml"));
             Parent root = loader.load();
 

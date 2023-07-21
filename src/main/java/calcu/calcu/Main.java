@@ -1,5 +1,6 @@
 package calcu.calcu;
 
+import calcu.data.Account;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,6 +43,11 @@ public class Main extends Application {
         stage.setTitle("Money M8 (A Payroll Calculator)");
         stage.setScene(scene); // eto footnote 1
         stage.show();
+    }
+
+    public Account account = new Account(null,null);
+    public Account getAccount(){
+        return account;
     }
 
     public static void main(String[] args) {
