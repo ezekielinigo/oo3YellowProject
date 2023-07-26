@@ -1,9 +1,11 @@
 package calcu.calcu;
 import calcu.data.Account;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,13 +15,21 @@ import java.io.IOException;
  * next is Export.java
  * */
 public abstract class Menu extends Main{
-    public abstract void initialize();
+    public abstract void initialize() throws IOException;
     protected Stage mainStage;
     public void setMainStage(Stage stage){
         this.mainStage = stage;
     }
     public void showPeople(ActionEvent e) throws IOException{
-        // in short yung code d2 is somewhat similar lang sa iba pang "show" methods
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("people.fxml"));
+        Parent root = loader.load();
+
+        People people = loader.getController();
+        people.setMainStage(mainStage);
+
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+        mainStage.show();
     }
     public void showExport(ActionEvent e) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("export.fxml")); // baguhin lang ung fxml file
@@ -33,15 +43,12 @@ public abstract class Menu extends Main{
         mainStage.show();
     }
     public void showTemplate(ActionEvent e) throws IOException{
-
+        // in short yung code d2 is somewhat similar lang sa iba pang "show" methods
     }
     public void showSettings(ActionEvent e) throws IOException{
 
     }
     public void showRegister(ActionEvent e) throws IOException{
-
-
-
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("register.fxml"));
         Parent root = loader.load();
 
