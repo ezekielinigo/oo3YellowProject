@@ -76,7 +76,7 @@ public class PayrollSystem {
             }
         }
 
-        System.out.println("Welcome to PACMAN (Payroll Automation and Calculation Management Application Network)");
+        System.out.println("Welcome to MONEYM8");
     }
 
     // Add Employee
