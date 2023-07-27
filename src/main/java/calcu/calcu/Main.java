@@ -31,24 +31,33 @@ import java.io.IOException;
  */
 
 public class Main extends Application {
+    public static Account account = new Account(null,null);
+    public Account getAccount(){
+        return account;
+    }
     @Override
     public void start(Stage stage) throws IOException {
+         /*
+
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("register.fxml"));
         Parent root = loader.load();
 
         Register register = loader.getController();
         register.setMainStage(stage); // 2
+*/
 
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("people.fxml"));
+        Parent root = loader.load();
+
+        People register = loader.getController();
+        register.setMainStage(stage); // 2
         Scene scene = new Scene(root);
         stage.setTitle("Money M8 (A Payroll Calculator)");
         stage.setScene(scene); // eto footnote 1
         stage.show();
     }
 
-    public Account account = new Account(null,null);
-    public Account getAccount(){
-        return account;
-    }
+
 
     public static void main(String[] args) {
         launch();

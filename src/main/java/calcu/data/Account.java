@@ -13,6 +13,9 @@ public class Account {
     }
 
     /** GETTER AND SETTERS */
+    public ArrayList<Employee> getEmployees(){
+        return this.employees;
+    }
     public Employee getEmployee(String name){
         for (Employee i : employees){
             if (i.getName().equals(name)){

@@ -22,11 +22,6 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bTemplate" layoutY="208.0" mnemonicParsing="false" onAction="#showTemplate" prefWidth="210.0" text="TEMPLATE">
-               <font>
-                  <Font name="System Bold" size="32.0" />
-               </font>
-            </Button>
             <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" onAction="#showSettings" prefWidth="210.0" text="SETTINGS">
                <font>
                   <Font name="System Bold" size="32.0" />

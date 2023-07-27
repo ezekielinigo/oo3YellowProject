@@ -1,6 +1,10 @@
 package calcu.data;
+
+import javafx.scene.Node;
+
 public class Employee{
     private String name;
+    private Node profile;
     private double hours, hourly, monthly; // regular salary
     private double ohours, multiplier, omonthly; // overtime
     private double tax; // tax
@@ -16,6 +20,12 @@ public class Employee{
     }
 
     /** GETTERS AND SETTERS */
+    public void setProfile(Node profile){
+        this.profile = profile;
+    }
+    public Node getProfile(){
+        return this.profile;
+    }
     public String getName() {
         return name;
     }
