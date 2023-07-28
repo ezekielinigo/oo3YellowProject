@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class Account {
     private String username, password;
     private ArrayList<Employee> employees = new ArrayList<>();
-    private ArrayList<Template> templates = new ArrayList<>();
-
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
@@ -27,17 +25,10 @@ public class Account {
     public void addEmployee(Employee employee){
         employees.add(employee);
     }
-    public Template getTemplate(String name){
-        for (Template i : templates){
-            if (i.getName().equals(name)){
-                return i;
-            }
-        }
-        return null;
+    public void delEmployee(Employee employee){
+        employees.remove(employee);
     }
-    public void addTemplate(Template template){
-        templates.add(template);
-    }
+
     public String getUsername(){
         return username;
     }

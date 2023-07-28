@@ -13,17 +13,17 @@
             <Image url="@../../user.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="button" fitHeight="32.0" fitWidth="32.0" layoutX="365.0" layoutY="18.0" onMouseClicked="#newProfile" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="button" fitHeight="32.0" fitWidth="32.0" layoutX="365.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../plus.png" />
+            <Image url="@../../minus.png" />
          </image>
       </ImageView>
-      <Label fx:id="profileName" layoutX="89.0" layoutY="8.0" onMouseClicked="#newProfile" text="New Employee">
+      <Label fx:id="profileName" layoutX="89.0" layoutY="8.0" text="New Employee">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="salaryTotal" layoutX="95.0" layoutY="34.0" onMouseClicked="#newProfile" prefHeight="17.0" prefWidth="142.0" text="PHP 1,000.00" />
-      <Label fx:id="salaryType" layoutX="95.0" layoutY="49.0" onMouseClicked="#newProfile" prefHeight="17.0" prefWidth="144.0" text="Hourly" />
+      <Label fx:id="salaryTotal" layoutX="95.0" layoutY="34.0" prefHeight="17.0" prefWidth="142.0" text="PHP 1,000.00" />
+      <Label fx:id="salaryType" layoutX="95.0" layoutY="49.0" prefHeight="17.0" prefWidth="144.0" text="Hourly" />
    </children>
 </AnchorPane>

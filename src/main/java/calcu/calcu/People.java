@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -21,42 +22,82 @@ import java.util.ArrayList;
  * employee == profile connected sa account
  * segment == ung GUI ng profile / ung pindutan sa people screen
  * newProfile == temporary profile para idifferentiate ung bago
+ * controller == yung controller mcmo, used to call the functions inside
  * */
 public class People extends Menu{
-    @FXML
-    VBox container;
+    /*** variables to be used by peopleEdit.java ***/
+    public static Employee editEmployee;
 
+    @FXML
+    private VBox container; // VBox where profile previews are added
+    public peopleSegment controllerSegment; // used to call the functions inside peopleSegment
     @Override
-    public void initialize() {
+    public void initialize() { // keeps track of the profile previews to make them persistent
         // List out all employees
-        for (Employee employee: account.getEmployees()){
-            container.getChildren().add(employee.getProfile());
-            System.out.println(employee);
+        if (container != null){
+            for (Employee employee: account.getEmployees()){
+                container.getChildren().add(employee.getProfile().getAnchorPane());
+            }
+        }
+    }
+    public void newProfile() throws IOException { // used to create a new profile incl. preview, info, etc.
+        // set up profile menu segment (peopleSegment.fxml)
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
+        Node newSegment = loader.load();
+        controllerSegment = loader.getController();
+
+        // create an empty profile
+        Employee newEmployee = new Employee(null);
+        account.addEmployee(newEmployee);
+        editEmployee = newEmployee;
+
+        // profile editor
+        // this will check if the current editEmployee variable is empty or not
+        // we are creating a new profile so it will detect that it has a null name
+        // it will call the create() method, which displays a blank edit form
+        // after saving, this will get the information found on the form and assign to the editEmployee
+        showPeopleEdit();
+
+        // and this will create and assign the brief profile info to it
+        controllerSegment.create(editEmployee.getName(), "PHP " + 100, "Hourly");
+        editEmployee.setProfile(controllerSegment);
+
+        // this will set up the other function buttons of the profile menu segment
+        container.getChildren().add(newSegment);
+        ImageView delButton = (ImageView) newSegment.lookup("#button");
+        delButton.setOnMouseClicked(this::delProfile);
+        Label editButton = (Label) newSegment.lookup("#profileName");
+        editButton.setOnMouseClicked(this::editProfile);
+
+        // this ends the profile editing and will return to the main people menu
+        //
+
+    }
+
+    private void delProfile(MouseEvent mouseEvent) {
+        try {
+            // when button is pressed, call this method
+            controllerSegment.delProfile(); // do the actual deletion
+            showPeople(); // refresh screen to reflect changes
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void newProfile() throws IOException{
-        // set up profile template (peopleSegment.fxml)
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
-        Node newSegment = loader.load();
-        peopleSegment template = loader.getController();
+    private void editProfile(MouseEvent mouseEvent){
+        try {
+            container.getChildren().clear();
+            // first, get employee info
+            editEmployee = account.getEmployee(controllerSegment.getSegment().getName());
+            showPeopleEdit();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        // open profile editor para gumawa ng profile
-        // showPeopleNew();
-        /// bagong fxml / new GUI
-        /// meron cguro getName(){ return textField.getText() }
-        /// isa ulit FXMLLoader bullshit para maaccess ung getName()
-
-        /// kunin ung info para gumawa ng bagong employee
-
-        /// reflect changes sa GUI ng people screen muna
-        //template.create(newSegment, getName(), getSalary(), ...)
-        //container.getChildren().add(newSegment);
-
-        /// tapos gawa na ng employee mcmo
-        //Employee newProfile = new Employee(newSegment, getName(), getSalary(), ...);
-
-        /// pag complete na lahat ng info, pede na idagdag sa main list of employees
-        //account.addEmployee(newProfile);
     }
+
+    public Employee getEmployee(){
+        return editEmployee;
+    }
+
 }

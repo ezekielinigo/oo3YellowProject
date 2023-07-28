@@ -31,7 +31,7 @@ public abstract class Menu extends Main{
         segments.add(segment);
     }
 
-    public void showPeople(ActionEvent e) throws IOException{
+    public void showPeople() throws IOException{
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("people.fxml"));
         Parent root = loader.load();
 
@@ -41,10 +41,19 @@ public abstract class Menu extends Main{
         Scene scene = new Scene(root);
         mainStage.setScene(scene);
         mainStage.show();
-
-
     }
-    public void showExport(ActionEvent e) throws IOException {
+    public void showPeopleEdit() throws IOException{
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("peopleEdit.fxml"));
+        Parent root = loader.load();
+
+        peopleEdit people = loader.getController();
+        people.setMainStage(mainStage);
+
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+        mainStage.show();
+    }
+    public void showExport() throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("export.fxml")); // baguhin lang ung fxml file
         Parent root = loader.load();
 
@@ -55,13 +64,13 @@ public abstract class Menu extends Main{
         mainStage.setScene(scene);
         mainStage.show();
     }
-    public void showTemplate(ActionEvent e) throws IOException{
+    public void showTemplate() throws IOException{
         // in short yung code d2 is somewhat similar lang sa iba pang "show" methods
     }
-    public void showSettings(ActionEvent e) throws IOException{
+    public void showSettings() throws IOException{
 
     }
-    public void showRegister(ActionEvent e) throws IOException{
+    public void showRegister() throws IOException{
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("register.fxml"));
         Parent root = loader.load();
 

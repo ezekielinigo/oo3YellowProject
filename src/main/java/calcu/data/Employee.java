@@ -1,119 +1,146 @@
 package calcu.data;
 
+import calcu.calcu.peopleSegment;
 import javafx.scene.Node;
 
 public class Employee{
-    private String name;
-    private Node profile;
-    private double hours, hourly, monthly; // regular salary
-    private double ohours, multiplier, omonthly; // overtime
-    private double tax; // tax
-    private double sss, phh, pgb; // government deduction
-    private double stotal, dtotal, total; // total
-    public Employee(String name, double wageHour, double wageMonth, double hours, double ohours, double multiplier) {
+    private String name, note, insuranceType;
+    private peopleSegment profile;
+    private double hourly, hours, monthly; // regular salary
+    private double multiplier, ohours, totalSalary; // overtime
+    private double incomeTax, totalTax; // tax
+    private double insurance, phil, pgb; // government deductions
+    private double netSalary; // total
+    public Employee(String name) {
         this.name = name;
-        this.hourly = wageHour;
-        this.monthly = wageMonth;
-        this.hours = hours;
-        this.ohours = ohours;
-        this.multiplier = multiplier;
     }
 
     /** GETTERS AND SETTERS */
-    public void setProfile(Node profile){
-        this.profile = profile;
-    }
-    public Node getProfile(){
-        return this.profile;
-    }
+
     public String getName() {
         return name;
     }
-    public void setName(String newname){
-        this.name = newname;
+
+    public void setName(String name) {
+        this.name = name;
     }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public double getHourlyRate() {
+        return hourly;
+    }
+
+    public void setHourlyRate(double hourly) {
+        this.hourly = hourly;
+    }
+
+    public double getMonthlySalary() {
+        return monthly;
+    }
+
+    public void setMonthlySalary(double monthly) {
+        this.monthly = monthly;
+    }
+
     public double getHours() {
         return hours;
     }
-    public double getHourly() {
-        return hourly;
+
+    public void setHours(double hours) {
+        this.hours = hours;
     }
-    public void setHourly(double wageHour) {
-        this.hourly = wageHour;
-        updateMonthly();
-        updateDeductions();
-        updateTotals();
-    }
-    public double getMonthly() {
-        return monthly;
-    }
-    public void setMonthly(double wageMonth) {
-        this.monthly = wageMonth;
-        updateHourly();
-        updateDeductions();
-        updateTotals();
-    }
-    public double getOhours(){
+
+    public double getOvertimeHours() {
         return ohours;
     }
-    public void setOhours(double othours){
-        this.ohours = othours;
-        updateOMonthly();
-        updateTotals();
+
+    public void setOvertimeHours(double ohours) {
+        this.ohours = ohours;
     }
-    public double getOmonthly(){
-        return omonthly;
-    }
-    public double getMultiplier(){
+
+    public double getMultiplier() {
         return multiplier;
     }
-    public void setMultiplier(double newmultiplier){
-        this.multiplier = newmultiplier;
-        updateOMonthly();
-        updateTotals();
+
+    public void setMultiplier(double multiplier) {
+        this.multiplier = multiplier;
     }
-    public double getTax() {
-        return tax;
+
+    public peopleSegment getProfile() {
+        return profile;
     }
-    public double getSss() {
-        return sss;
+
+    public void setProfile(peopleSegment profile) {
+        this.profile = profile;
     }
-    public double getPhh() {
-        return phh;
+    public double getTotalSalary() {
+        return totalSalary;
     }
+
+    public void setTotalSalary(double totalSalary) {
+        this.totalSalary = totalSalary;
+    }
+
+    public double getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(double insurance) {
+        this.insurance = insurance;
+    }
+
+    public String getInsuranceType() {
+        return insuranceType;
+    }
+
+    public void setInsuranceType(String insuranceType){
+        this.insuranceType = insuranceType;
+    }
+
     public double getPgb() {
         return pgb;
     }
-    public double getStotal() {
-        return stotal;
-    }
-    public double getDtotal() {
-        return dtotal;
-    }
-    public double getTotal() {
-        return total;
+
+    public void setPgb(double pgb) {
+        this.pgb = pgb;
     }
 
-    /** AUTOMATICALLY UPDATE VALUES */
-    private void updateMonthly() {
-        this.monthly = hourly * hours;
+    public double getPhil() {
+        return phil;
     }
-    private void updateHourly() {
-        this.hourly = monthly / hours;
+
+    public void setPhil(double phil) {
+        this.phil = phil;
     }
-    private void updateOMonthly() {
-        this.omonthly = hourly * ohours * multiplier;
+
+    public double getIncomeTax() {
+        return incomeTax;
     }
-    private void updateDeductions() {
-        this.tax = 0.2 * monthly;
-        this.sss = 0.1 * monthly;
-        this.phh = 0.05 * monthly;
-        this.pgb = 0.03 * monthly;
-        // ARBITRARY NUMBERS KAILANGAN PA BAGUHIN
+
+    public void setIncomeTax(double incomeTax) {
+        this.incomeTax = incomeTax;
     }
-    private void updateTotals() {
-        this.stotal = monthly + omonthly;
-        this.dtotal = tax + sss + phh + pgb;
-        this.total = stotal - dtotal;
+
+    public double getTotalTax() {
+        return totalTax;
+    }
+
+    public void setTotalTax(double totalTax) {
+        this.totalTax = totalTax;
+    }
+
+    public double getNetSalary() {
+        return netSalary;
+    }
+
+    public void setNetSalary(double netSalary) {
+        this.netSalary = netSalary;
     }
 }

@@ -1,17 +1,22 @@
 package calcu.calcu;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class peopleSegment{
+public class peopleSegment extends Menu{
     @FXML
     private AnchorPane segment;
     @FXML
@@ -23,15 +28,30 @@ public class peopleSegment{
     @FXML
     private Label salaryType;
 
-
-    /*
-    public void setText(String str) {
-        this.profileName.setText(str);
-    }
-    @FXML
-    public void newProfile() throws IOException{
+    @Override
+    public void initialize(){
 
     }
+    public void create(String name, String sTotal, String sType){
+        this.profileName.setText(name);
+        this.salaryTotal.setText(sTotal);
+        this.salaryType.setText(sType);
+    }
+    public void delProfile() throws IOException{
+        //System.out.println(account.getEmployee(profileName.getText()).getProfile()+" deleted");
+        account.delEmployee(account.getEmployee(profileName.getText()));
+    }
+    public String getName() {
+        return this.profileName.getText();
+    }
 
-     */
+    public peopleSegment getSegment(){
+        return this;
+    }
+
+    public AnchorPane getAnchorPane(){
+        return this.segment;
+    }
+
+
 }
