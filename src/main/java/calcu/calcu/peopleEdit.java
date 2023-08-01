@@ -54,7 +54,6 @@ public class peopleEdit extends People{
         insuranceType.getItems().addAll(insuranceTypes);
         insuranceType.setOnAction(this::insuranceUpdate);
 
-        System.out.println("HERE");
         if (editEmployee.getName() != null)
             edit();
     }
@@ -63,9 +62,6 @@ public class peopleEdit extends People{
  *   EDITING A PROFILE WILL DISPLAY ITS VALUES
  * ***/
     public void edit(){
-        name.setText(editEmployee.getName());
-        note.setText(editEmployee.getNote());
-        hourly.setText(String.valueOf(editEmployee.getHourlyRate()));
         name.setText(editEmployee.getName());
         note.setText(editEmployee.getNote());
         hourly.setText(String.valueOf(editEmployee.getHourlyRate()));
@@ -112,13 +108,26 @@ public class peopleEdit extends People{
             insurance.setText(String.valueOf(0));
         }
 
+        // FOR TESTING, DELETE NALANG TO PAGKATAPOS
+        hourly.setText("10");
+        monthly.setText("20");
+        hours.setText("30");
+        ohours.setText("40");
+        multi.setText("50");
+        totalSalary.setText("60");
+        insurance.setText("70");
+        pgb.setText("80");
+        phil.setText("90");
+        incomeTax.setText("11");
+        totalTax.setText("21");
+        totalFinal.setText("31");
     }
 
 /*** CLICKING CHECK WILL SAVE CHANGES AND WILL REFLECT TO ACTUAL EMPLOYEE INFO ***/
     public void save() {
         try {
             if (editEmployee != null) {
-                editEmployee.getProfile().create(name.getText(), note.getText(), "PHP" + totalFinal.getText());
+                editEmployee.getProfile().create(name.getText(), note.getText(), "PHP " + totalFinal.getText());
                 editEmployee.setName(name.getText());
                 editEmployee.setNote(note.getText());
                 editEmployee.setInsuranceType(insuranceType.getValue());

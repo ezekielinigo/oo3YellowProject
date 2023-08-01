@@ -113,7 +113,7 @@
                         <Label layoutX="224.0" layoutY="74.0" text="Income" />
                         <TextField fx:id="totalTax" editable="false" layoutX="285.0" layoutY="111.0" opacity="0.8" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="224.0" layoutY="115.0" text="Total" />
-                        <TextField fx:id="totalFInal" editable="false" layoutX="285.0" layoutY="153.0" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: none;" />
+                        <TextField fx:id="totalFinal" editable="false" layoutX="285.0" layoutY="153.0" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: none;" />
                         <Label layoutX="224.0" layoutY="157.0" text="Net" />
                         <Label layoutX="308.0" layoutY="21.0" text="TAX" textAlignment="CENTER">
                            <font>
