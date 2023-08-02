@@ -36,74 +36,90 @@ public class People extends Menu{
         // List out all employees
         if (container != null){
             for (Employee employee : account.getEmployees()) {
-                // create a controller for an anchorpane fxml (with buttons and labels according to the values of "name", "note", and "monthlyrate")
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
-                Node newSegment = loader.load();
-                controllerSegment = loader.getController();
-
-                // set the values of the buttons and labels
-                controllerSegment.setName(employee.getName());
-                controllerSegment.setNote(employee.getNote());
-                controllerSegment.setMonthlyRate(employee.getMonthlySalary());
-
-                // add the anchor pane to the VBox
-                container.getChildren().add(newSegment);
-
-                // set up the other function buttons of the profile menu segment
-                ImageView delButton = (ImageView) newSegment.lookup("#button");
-                delButton.setOnMouseClicked(this::delProfile);
-                Label editButton = (Label) newSegment.lookup("#profileName");
-                editButton.setOnMouseClicked(this::editProfile);
-                employee.setProfile(controllerSegment);
+                addProfileToContainer(employee);
             }
         }
     }
-    public void newProfile() throws IOException { // used to create a new profile incl. preview, info, etc.
-        // set up profile menu segment (peopleSegment.fxml)
+
+    private void addProfileToContainer(Employee employee) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
         Node newSegment = loader.load();
-        controllerSegment = loader.getController();
+        peopleSegment controllerSegment = loader.getController();
 
-        // create an empty profile
-        Employee newEmployee = new Employee(null);
-        account.addEmployee(newEmployee);
-        editEmployee = newEmployee;
+        controllerSegment.create(employee.getName(), "PHP " + employee.getMonthlySalary(), "Hourly");
 
-
-        // profile editor
-        // this will check if the current editEmployee variable is empty or not
-        // we are creating a new profile so it will detect that it has a null name
-        // it will call the create() method, which displays a blank edit form
-        // after saving, this will get the information found on the form and assign to the editEmployee
-        showPeopleEdit();
-
-        // and this will create and assign the brief profile info to it
-        controllerSegment.create(editEmployee.getName(), "PHP " + 100, "Hourly");
-        editEmployee.setProfile(controllerSegment);
-
-        // this will set up the other function buttons of the profile menu segment
         container.getChildren().add(newSegment);
+
         ImageView delButton = (ImageView) newSegment.lookup("#button");
-        delButton.setOnMouseClicked(this::delProfile);
+        delButton.setOnMouseClicked(event -> delProfile(employee));
+
         Label editButton = (Label) newSegment.lookup("#profileName");
-        editButton.setOnMouseClicked(this::editProfile);
+        editButton.setOnMouseClicked(event -> editProfile(employee));
     }
 
-    private void delProfile(MouseEvent mouseEvent) {
+    public void newProfile() throws IOException { // used to create a new profile incl. preview, info, etc.
+        // set up profile menu segment (peopleSegment.fxml)
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
+//        Node newSegment = loader.load();
+//        controllerSegment = loader.getController();
+//
+//        // create an empty profile
+//        Employee newEmployee = new Employee(null);
+//        account.addEmployee(newEmployee);
+//        editEmployee = newEmployee;
+//
+//
+//        // profile editor
+//        // this will check if the current editEmployee variable is empty or not
+//        // we are creating a new profile so it will detect that it has a null name
+//        // it will call the create() method, which displays a blank edit form
+//        // after saving, this will get the information found on the form and assign to the editEmployee
+//        showPeopleEdit();
+//
+//        // and this will create and assign the brief profile info to it
+//        controllerSegment.create(editEmployee.getName(), "PHP " + 100, "Hourly");
+//        editEmployee.setProfile(controllerSegment);
+//
+//        // this will set up the other function buttons of the profile menu segment
+//        container.getChildren().add(newSegment);
+//        ImageView delButton = (ImageView) newSegment.lookup("#button");
+//        delButton.setOnMouseClicked(this::delProfile);
+//        Label editButton = (Label) newSegment.lookup("#profileName");
+//        editButton.setOnMouseClicked(this::editProfile);
+
+        Employee newEmployee = new Employee(null);
+        account.addEmployee(newEmployee);
+        addProfileToContainer(newEmployee);
+
+        editEmployee = newEmployee;
+        showPeopleEdit();
+        controllerSegment.create(editEmployee.getName(), "PHP " + 100, "Hourly");
+        editEmployee.setProfile(controllerSegment);
+    }
+
+    private void delProfile(Employee employee) {
         try {
             // when button is pressed, call this method
-            controllerSegment.delProfile(); // do the actual deletion
-            showPeople(); // refresh screen to reflect changes
+//            controllerSegment.delProfile(); // do the actual deletion
+//            showPeople(); // refresh screen to reflect changes
+            account.delEmployee(employee);
+            container.getChildren().clear();
+            for (Employee emp : account.getEmployees()) {
+                addProfileToContainer(emp);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void editProfile(MouseEvent mouseEvent){
+    private void editProfile(Employee employee){
         try {
+//            container.getChildren().clear();
+//            // first, get employee info
+//            editEmployee = account.getEmployee(controllerSegment.getSegment().getName());
+//            showPeopleEdit();
             container.getChildren().clear();
-            // first, get employee info
-            editEmployee = account.getEmployee(controllerSegment.getSegment().getName());
+            editEmployee = account.getEmployee(employee.getName());
             showPeopleEdit();
         } catch (IOException e) {
             throw new RuntimeException(e);
