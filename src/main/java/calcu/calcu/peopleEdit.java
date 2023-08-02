@@ -140,27 +140,40 @@ public class peopleEdit extends People{
         double w = Double.parseDouble(hourly.getText());
         double mu = Double.parseDouble(multi.getText());
         double oh = Double.parseDouble(ohours.getText());
-        System.out.println("=====");
-        System.out.println("wage[w] "+w);
-        System.out.println("Monthly[m] "+m);
-        System.out.println("Overtime Hours[oh] "+oh);
-        System.out.println("Normal Hours[h] "+h);
-        System.out.println("Multiplier[mu] "+mu);
-
         double luto = (w*oh*mu)+(20*w*h);
-        totalSalary.setText(String.valueOf(luto));
-        monthly.setText(String.valueOf(20*w*h));
 
+        double ph = Math.round(luto*0.02);
+        double pi = Math.round(luto*0.003);
+        double it = Math.round(luto*0.045);
+        double ss = Math.round(luto*0.03);
+        double gs = Math.round(luto*0.04);
+
+        totalSalary.setText(String.valueOf(luto));
+
+        monthly.setText(String.valueOf(20*w*h));
+        phil.setText(String.valueOf(ph));
+        pgb.setText(String.valueOf(pi));
+        incomeTax.setText(String.valueOf(it));
+        double tt = 0;
         if (insuranceType.getValue().equals("SSS")) {
             // ETO SSS COMPUTATIONS
             //insurance.setText(String.valueOf(COMPUTATIONS));
             // GANTO SAMPLE PANO MAG OUTPUT NG VALUE
             // CONVERT MUNA TO STRING THEN LAGAY SA TEXT FIELD
+            insurance.setText(String.valueOf(ss));
+            tt = Math.round(ph+pi+it+ss);
+            totalTax.setText(String.valueOf(tt));
+            totalFinal.setText(String.valueOf(luto-tt));
         }else if (insuranceType.getValue().equals("GSIS")) {
             // ETO GSIS
+            insurance.setText(String.valueOf(gs));
+            tt = Math.round(ph+pi+it+gs);
+            totalTax.setText(String.valueOf(tt));
+            totalFinal.setText(String.valueOf(luto-tt));
         }else{
             insurance.setText(String.valueOf(0));
         }
+        totalFinal.setText(String.valueOf(luto-tt));
     }
 
  /*** CLICKING CHECK WILL SAVE CHANGES AND WILL REFLECT TO ACTUAL EMPLOYEE INFO ***/
@@ -180,7 +193,6 @@ public class peopleEdit extends People{
 
             if (editEmployee != null && !name.getText().isBlank() && (!existingEmployee() || !isNewProfile)) {
                 isNewProfile = false;
-                //editEmployee.getProfile().create(name.getText(), note.getText(), "PHP " + totalFinal.getText());
                 editEmployee.setName(name.getText());
                 editEmployee.setNote(note.getText());
                 editEmployee.setInsuranceType(insuranceType.getValue());

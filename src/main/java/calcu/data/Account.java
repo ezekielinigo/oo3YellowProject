@@ -163,7 +163,6 @@ public class Account extends Menu {
             reader.close();
         }catch (Exception e){}
         for (int a=0; a<empCount; a++){
-
             Employee x = new Employee(empData[a][0]);
             x.setNote(empData[a][1]);
             x.setHourlyRate(Double.parseDouble(empData[a][2]));
@@ -180,7 +179,6 @@ public class Account extends Menu {
             x.setPgb(Double.parseDouble(empData[a][13]));
             x.setNetSalary(Double.parseDouble(empData[a][14]));
             employees.add(x);
-
         }
     }
 
