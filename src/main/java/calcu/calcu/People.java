@@ -46,7 +46,7 @@ public class People extends Menu{
         Node newSegment = loader.load();
         peopleSegment controllerSegment = loader.getController();
 
-        controllerSegment.create(employee.getName(), "PHP " + employee.getMonthlySalary(), "Hourly");
+        controllerSegment.create(employee.getName(), employee.getNote(), "PHP " + employee.getMonthlySalary());
 
         container.getChildren().add(newSegment);
 

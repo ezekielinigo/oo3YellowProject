@@ -180,7 +180,7 @@ public class peopleEdit extends People{
 
             if (editEmployee != null && !name.getText().isBlank() && (!existingEmployee() || !isNewProfile)) {
                 isNewProfile = false;
-                editEmployee.getProfile().create(name.getText(), note.getText(), "PHP " + totalFinal.getText());
+                //editEmployee.getProfile().create(name.getText(), note.getText(), "PHP " + totalFinal.getText());
                 editEmployee.setName(name.getText());
                 editEmployee.setNote(note.getText());
                 editEmployee.setInsuranceType(insuranceType.getValue());

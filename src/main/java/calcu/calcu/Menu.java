@@ -25,12 +25,6 @@ public abstract class Menu extends Main{
         this.mainStage = stage;
     }
     private ArrayList<Node> segments = new ArrayList<>();
-    public ArrayList<Node> getSegments(){
-        return segments;
-    }
-    public void setSegments(Node segment){
-        segments.add(segment);
-    }
 
     public void showPeople() throws IOException{
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("people.fxml"));
@@ -80,7 +74,15 @@ public abstract class Menu extends Main{
         controller.setErrorMessage(error);
     }
     public void showSettings() throws IOException{
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("peopleEdit.fxml"));
+        Parent root = loader.load();
 
+        Settings settings = loader.getController();
+        settings.setMainStage(mainStage);
+
+        Scene scene = new Scene(root);
+        mainStage.setScene(scene);
+        mainStage.show();
     }
     public void showRegister() throws IOException{
         account.saveAccount();
