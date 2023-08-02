@@ -69,8 +69,6 @@ public class People extends Menu{
         Label editButton = (Label) newSegment.lookup("#profileName");
         editButton.setOnMouseClicked(this::editProfile);
 
-        // this ends the profile editing and will return to the main people menu
-        //
 
     }
 

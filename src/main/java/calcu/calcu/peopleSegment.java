@@ -38,7 +38,6 @@ public class peopleSegment extends Menu{
         this.salaryType.setText(sType);
     }
     public void delProfile() throws IOException{
-        //System.out.println(account.getEmployee(profileName.getText()).getProfile()+" deleted");
         account.delEmployee(account.getEmployee(profileName.getText()));
     }
     public String getName() {

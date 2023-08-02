@@ -1,5 +1,6 @@
 package calcu.calcu;
 
+import calcu.data.Employee;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -7,9 +8,11 @@ import javafx.scene.control.Label;
 public class Export extends Menu{
     @FXML
     private Label grandTotal;
-    private double kunyareEtoYungTotal = 1000.00;
     @Override
     public void initialize(){
-        grandTotal.setText("PHP " + kunyareEtoYungTotal);
+        double value = 0;
+        for (Employee employee : account.getEmployees())
+            value = value + employee.getNetSalary();
+        grandTotal.setText("PHP " + value);
     }
 }

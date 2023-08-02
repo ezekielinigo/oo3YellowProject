@@ -1,6 +1,8 @@
 package calcu.calcu;
 
 import calcu.data.Employee;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -11,7 +13,9 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import java.awt.*;
 import java.io.IOException;
+import java.util.function.Function;
 
 public class peopleEdit extends People{
 /*** SETTING UP TEXT FIELDS TO BE USED ***/
@@ -50,12 +54,39 @@ public class peopleEdit extends People{
     @FXML
     private ChoiceBox<String> insuranceType;
     private final String[] insuranceTypes = {"SSS","GSIS"};
+    public boolean isNewProfile;
     public void initialize(){
         insuranceType.getItems().addAll(insuranceTypes);
         insuranceType.setOnAction(this::insuranceUpdate);
 
-        if (editEmployee.getName() != null)
+        if (editEmployee.getName() != null) {// USE EXISTING INFO
             edit();
+            isNewProfile = false;
+        }else { // POPULATE WITH DEFAULT INFO
+            name.setText("Employee Name");
+            note.setText("");
+            hourly.setText("0");
+            monthly.setText("0");
+            hours.setText("0");
+            ohours.setText("0");
+            multi.setText("0");
+            totalSalary.setText("0");
+            insurance.setText("0");
+            insuranceType.setValue("SSS");
+            pgb.setText("0");
+            phil.setText("0");
+            incomeTax.setText("0");
+            totalTax.setText("0");
+            totalFinal.setText("0");
+            isNewProfile = true;
+        }
+    }
+    public static void numericOnly(final TextField field) {
+        String text = field.getText();
+        if (!text.matches("\\d*"))
+            field.setText(text.replaceAll("[^\\d]", ""));
+        else if (text.isBlank())
+            field.setText("0");
     }
 
 /*** ADDING A NEW PROFILE WILL DISPLAY PRE-DEFINED VALUES
@@ -86,7 +117,12 @@ public class peopleEdit extends People{
     public void insuranceUpdate(ActionEvent e){
         update();
     }
-    public void textUpdate(InputMethodEvent inputMethodEvent) {
+    public void textUpdate() {
+        numericOnly(hourly);
+        numericOnly(hours);
+        numericOnly(multi);
+        numericOnly(ohours);
+
         update();
     }
     public void update(){
@@ -107,37 +143,37 @@ public class peopleEdit extends People{
         }else{
             insurance.setText(String.valueOf(0));
         }
-
-        // FOR TESTING, DELETE NALANG TO PAGKATAPOS
-        hourly.setText("10");
-        monthly.setText("20");
-        hours.setText("30");
-        ohours.setText("40");
-        multi.setText("50");
-        totalSalary.setText("60");
-        insurance.setText("70");
-        pgb.setText("80");
-        phil.setText("90");
-        incomeTax.setText("11");
-        totalTax.setText("21");
-        totalFinal.setText("31");
     }
 
 /*** CLICKING CHECK WILL SAVE CHANGES AND WILL REFLECT TO ACTUAL EMPLOYEE INFO ***/
+    public boolean existingEmployee(){
+        if (account.getEmployee(name.getText()) == null)
+            return false;
+        else
+            return true;
+    }
+    public void previous() throws IOException { // op
+        if (isNewProfile)
+            account.delEmployee(editEmployee);
+        showPeople();
+    }
     public void save() {
         try {
-            if (editEmployee != null) {
+
+            if (editEmployee != null && !name.getText().isBlank() && (!existingEmployee() || !isNewProfile)) {
+                isNewProfile = false;
                 editEmployee.getProfile().create(name.getText(), note.getText(), "PHP " + totalFinal.getText());
                 editEmployee.setName(name.getText());
                 editEmployee.setNote(note.getText());
                 editEmployee.setInsuranceType(insuranceType.getValue());
 
                 // convert to double
+                Function<String, String> optional = value -> value.isBlank() ? "0" : value; // if no value then assign "0"
                 double dhourly = Double.parseDouble(hourly.getText());
                 double dhours = Double.parseDouble(hours.getText());
                 double dmonthly = Double.parseDouble(monthly.getText());
-                double dmulti = Double.parseDouble(multi.getText());
-                double dohours = Double.parseDouble(ohours.getText());
+                double dmulti = Double.parseDouble(optional.apply(multi.getText()));
+                double dohours = Double.parseDouble(optional.apply(ohours.getText()));
                 double dtotalSalary = Double.parseDouble(totalSalary.getText());
                 double dinsurance = Double.parseDouble(insurance.getText());
                 double dpgb = Double.parseDouble(pgb.getText());
@@ -163,8 +199,15 @@ public class peopleEdit extends People{
                 // return to People screen
                 showPeople();
             } else {
-
+                if (account.getEmployee(name.getText())!=null)
+                    showError("Profile with this name already exists.");
+                else if (name.getText().isBlank())
+                    showError("Employee name is required");
+                else
+                    showError("IDK");
             }
+
+
         } catch (IOException e){
             System.out.println();
         }

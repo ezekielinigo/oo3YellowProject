@@ -16,9 +16,10 @@ public class Account {
     }
     public Employee getEmployee(String name){
         for (Employee i : employees){
-            if (i.getName().equals(name)){
+            if (i.getName() == null)
+                return null;
+            else if (i.getName().equals(name))
                 return i;
-            }
         }
         return null;
     }

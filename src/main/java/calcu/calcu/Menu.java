@@ -64,8 +64,19 @@ public abstract class Menu extends Main{
         mainStage.setScene(scene);
         mainStage.show();
     }
-    public void showTemplate() throws IOException{
-        // in short yung code d2 is somewhat similar lang sa iba pang "show" methods
+    public void showError(String error) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("errorHandler.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setTitle("Error");
+
+        stage.setScene(scene);
+        stage.show();
+
+        ErrorHandler controller = loader.getController();
+        controller.setErrorMessage(error);
     }
     public void showSettings() throws IOException{
 

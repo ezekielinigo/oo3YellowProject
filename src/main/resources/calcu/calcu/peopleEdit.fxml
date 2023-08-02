@@ -17,22 +17,22 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="197.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#showPeople" prefWidth="210.0" text="PEOPLE">
+            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#previous" prefWidth="210.0" text="PEOPLE">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" onAction="#showExport" prefWidth="210.0" text="EXPORT">
+            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" prefWidth="210.0" text="EXPORT">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" onAction="#showSettings" prefWidth="210.0" text="SETTINGS">
+            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" prefWidth="210.0" text="SETTINGS">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" onAction="#showRegister" prefWidth="210.0" text="QUIT">
+            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" prefWidth="210.0" text="QUIT">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
@@ -72,20 +72,20 @@
                   <Separator prefWidth="200.0" />
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <TextField fx:id="hourly" layoutX="95.0" layoutY="70.0" onInputMethodTextChanged="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
+                        <TextField fx:id="hourly" layoutX="95.0" layoutY="70.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="34.0" layoutY="74.0" text="Wage" />
-                        <TextField fx:id="hours" layoutX="95.0" layoutY="111.0" onInputMethodTextChanged="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
+                        <TextField fx:id="hours" layoutX="95.0" layoutY="111.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="34.0" layoutY="115.0" text="Hours" />
-                        <TextField fx:id="monthly" layoutX="95.0" layoutY="153.0" onInputMethodTextChanged="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
+                        <TextField fx:id="monthly" layoutX="95.0" layoutY="153.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="34.0" layoutY="157.0" text="Monthly" />
                         <Label layoutX="92.0" layoutY="21.0" text="HOURLY" textAlignment="CENTER">
                            <font>
                               <Font size="26.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="multi" layoutX="285.0" layoutY="70.0" onInputMethodTextChanged="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
+                        <TextField fx:id="multi" layoutX="285.0" layoutY="70.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="224.0" layoutY="74.0" text="Multiplier" />
-                        <TextField fx:id="ohours" layoutX="285.0" layoutY="111.0" onInputMethodTextChanged="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
+                        <TextField fx:id="ohours" layoutX="285.0" layoutY="111.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="224.0" layoutY="115.0" text="Hours" />
                         <TextField fx:id="totalSalary" editable="false" layoutX="285.0" layoutY="153.0" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: none;" />
                         <Label layoutX="224.0" layoutY="157.0" text="Gross" />
