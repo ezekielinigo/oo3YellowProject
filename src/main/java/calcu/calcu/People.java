@@ -32,13 +32,33 @@ public class People extends Menu{
     private VBox container; // VBox where profile previews are added
     public peopleSegment controllerSegment; // used to call the functions inside peopleSegment
     @Override
-    public void initialize() { // keeps track of the profile previews to make them persistent
+    public void initialize() throws IOException { // keeps track of the profile previews to make them persistent
+        if (account.getisLoadingData()){
+            for (Employee employee : account.getEmployees()){
+                loadProfiles(employee);
+            }
+        }
+        account.setisLoadingData(false);
         // List out all employees
         if (container != null){
             for (Employee employee: account.getEmployees()){
                 container.getChildren().add(employee.getProfile().getAnchorPane());
             }
         }
+    }
+    public void loadProfiles(Employee employee) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
+        Node newSegment = loader.load();
+        controllerSegment = loader.getController();
+
+        controllerSegment.create(employee.getName(), "PHP "+ employee.getNetSalary(), String.valueOf(employee.getHourlyRate()));
+        employee.setProfile(controllerSegment);
+
+        //container.getChildren().clear();
+        ImageView delButton = (ImageView) newSegment.lookup("#button");
+        delButton.setOnMouseClicked(this::delProfile);
+        Label editButton = (Label) newSegment.lookup("#profileName");
+        editButton.setOnMouseClicked(this::editProfile);
     }
     public void newProfile() throws IOException { // used to create a new profile incl. preview, info, etc.
         // set up profile menu segment (peopleSegment.fxml)
@@ -50,6 +70,7 @@ public class People extends Menu{
         Employee newEmployee = new Employee(null);
         account.addEmployee(newEmployee);
         editEmployee = newEmployee;
+
 
         // profile editor
         // this will check if the current editEmployee variable is empty or not

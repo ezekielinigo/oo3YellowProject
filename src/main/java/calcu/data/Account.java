@@ -1,5 +1,6 @@
 package calcu.data;
 
+import calcu.calcu.Menu;
 import calcu.calcu.peopleSegment;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -7,9 +8,16 @@ import javafx.scene.Node;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Account {
+public class Account extends Menu {
     private String username, password;
     private ArrayList<Employee> employees = new ArrayList<>();
+    private boolean isLoadingData;
+    public void setisLoadingData(boolean bool){
+        this.isLoadingData = bool;
+    }
+    public boolean getisLoadingData(){
+        return this.isLoadingData;
+    }
 
     public static void newAccount(String inputUser, String inputPass){
         try{
@@ -190,6 +198,7 @@ public class Account {
     */
     public void loadData() throws IOException {
         employees.clear();
+        isLoadingData = true;
         String file = "assets/Accounts/"+username+".csv";
         BufferedReader reader = null;
         String line = "";
@@ -230,13 +239,6 @@ public class Account {
             x.setNetSalary(Double.parseDouble(empData[a][14]));
             employees.add(x);
         }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
-        Node newSegment = loader.load();
-        peopleSegment controller = loader.getController();
-        for (Employee employee : employees){
-            controller.create(employee.getName(), "PHP "+ employee.getNetSalary(), String.valueOf(employee.getHourlyRate()));
-            employee.setProfile(controller);
-        }
     }
     public boolean loadAccount() throws IOException {
         /* TBA
@@ -274,5 +276,10 @@ public class Account {
                 System.out.println("DEPOLT");
                 return false;
         }
+    }
+
+    @Override
+    public void initialize() throws IOException {
+
     }
 }

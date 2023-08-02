@@ -89,6 +89,8 @@ public class peopleEdit extends People{
             field.setText("0");
     }
 
+
+
 /*** ADDING A NEW PROFILE WILL DISPLAY PRE-DEFINED VALUES
  *   EDITING A PROFILE WILL DISPLAY ITS VALUES
  * ***/

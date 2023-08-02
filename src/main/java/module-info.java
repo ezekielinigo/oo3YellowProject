@@ -1,4 +1,5 @@
 module calcu.calcu {
+    requires kotlin.stdlib;
     requires javafx.controls;
     requires javafx.fxml;
         requires javafx.web;

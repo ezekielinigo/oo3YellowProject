@@ -38,10 +38,10 @@ public class Register extends Menu {
         System.out.println(account.getUsername());
 
         if (account.loadAccount()){
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("export.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("People.fxml"));
             Parent root = loader.load();
 
-            Export export = loader.getController();
+            People export = loader.getController();
             export.setMainStage(mainStage);
 
             Scene scene = new Scene(root);
