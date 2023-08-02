@@ -35,7 +35,6 @@ public class Register extends Menu {
         account.setUsername(user.replaceAll("\\s", ""));
         account.setPassword(pass.replaceAll("\\s", ""));
 
-        System.out.println(account.getUsername());
 
         if (account.loadAccount()){
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("People.fxml"));
