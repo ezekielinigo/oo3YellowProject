@@ -14,8 +14,8 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="username" layoutX="198.0" layoutY="164.0" prefHeight="25.0" prefWidth="204.0" promptText="username" />
-            <PasswordField fx:id="password" layoutX="198.0" layoutY="200.0" prefHeight="25.0" prefWidth="204.0" promptText="password" />
+            <TextField fx:id="username" layoutX="198.0" layoutY="164.0" onKeyTyped="#updateUsername" prefHeight="25.0" prefWidth="204.0" promptText="username" />
+            <PasswordField fx:id="password" layoutX="198.0" layoutY="200.0" onKeyTyped="#updatePassword" prefHeight="25.0" prefWidth="204.0" promptText="password" />
             <Label layoutX="358.0" layoutY="234.0" onMouseClicked="#showLogin" text="SIGN IN" textFill="#ee7318" />
             <Button layoutX="249.0" layoutY="264.0" mnemonicParsing="false" onAction="#createAccount" text="Create Account" />
             <Text layoutX="198.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account?" />

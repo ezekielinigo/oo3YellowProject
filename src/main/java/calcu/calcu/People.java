@@ -68,8 +68,6 @@ public class People extends Menu{
         delButton.setOnMouseClicked(this::delProfile);
         Label editButton = (Label) newSegment.lookup("#profileName");
         editButton.setOnMouseClicked(this::editProfile);
-
-
     }
 
     private void delProfile(MouseEvent mouseEvent) {

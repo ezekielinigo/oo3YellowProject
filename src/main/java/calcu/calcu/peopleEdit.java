@@ -145,7 +145,7 @@ public class peopleEdit extends People{
         }
     }
 
-/*** CLICKING CHECK WILL SAVE CHANGES AND WILL REFLECT TO ACTUAL EMPLOYEE INFO ***/
+ /*** CLICKING CHECK WILL SAVE CHANGES AND WILL REFLECT TO ACTUAL EMPLOYEE INFO ***/
     public boolean existingEmployee(){
         if (account.getEmployee(name.getText()) == null)
             return false;

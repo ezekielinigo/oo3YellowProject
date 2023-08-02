@@ -1,4 +1,5 @@
 package calcu.calcu;
+import calcu.data.Account;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,6 +83,7 @@ public abstract class Menu extends Main{
 
     }
     public void showRegister() throws IOException{
+        account.saveAccount();
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("register.fxml"));
         Parent root = loader.load();
 

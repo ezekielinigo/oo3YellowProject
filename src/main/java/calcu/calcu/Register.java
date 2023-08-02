@@ -19,15 +19,24 @@ public class Register extends Menu {
         // TBA
     }
 
+    public void updateUsername(){
+    }
+    public void updatePassword(){
+    }
+
     /** EXPORT SCREEN **/
     @FXML
     private TextField username;
     @FXML
     private PasswordField password;
     public void createAccount(ActionEvent e) throws IOException {
-        account.setUsername(username.getText());
+        String user = username.getText();
+        String pass = password.getText();
+        account.setUsername(user.replaceAll("\\s", ""));
+        account.setPassword(pass.replaceAll("\\s", ""));
 
         System.out.println(account.getUsername());
+
         if (account.loadAccount()){
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("export.fxml"));
             Parent root = loader.load();
