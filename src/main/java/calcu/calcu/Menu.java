@@ -74,7 +74,7 @@ public abstract class Menu extends Main{
         controller.setErrorMessage(error);
     }
     public void showSettings() throws IOException{
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("peopleEdit.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("settings.fxml"));
         Parent root = loader.load();
 
         Settings settings = loader.getController();
