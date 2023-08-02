@@ -38,19 +38,11 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("register.fxml"));
         Parent root = loader.load();
 
         Register register = loader.getController();
         register.setMainStage(stage); // 2
-
-/*
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("people.fxml"));
-        Parent root = loader.load();
-
-        People register = loader.getController();
-        register.setMainStage(stage); // 2 */
 
         Scene scene = new Scene(root);
         stage.setTitle("Money M8 (A Payroll Calculator)");

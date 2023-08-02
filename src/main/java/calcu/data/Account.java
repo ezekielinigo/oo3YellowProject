@@ -47,46 +47,7 @@ public class Account extends Menu {
             }
         }
     }
-    public static int checkAccDatabase(String inputUser, String inputPass) throws IOException {
-        String file = "assets/acc_list.csv";
-        BufferedReader reader = null;
-        String line = "";
-        String[][] list = new String[2][100];
-        int i;
-        int j = 0;
-        int columns = 0;
-        try{
-            reader = new BufferedReader(new FileReader(file));
-            while((line = reader.readLine()) != null){
-                String[] row = line.split(",");
-                i = 0;
-                for (String index : row){
-                    list[i][j] = index;
-                    i++;
-                }
-                columns++;
-                j++;
-            }
-        }catch (Exception e){e.printStackTrace();}finally {
-            reader.close();
-        }
 
-        for (int a=0; a<columns; a++){
-            if ((list[0][a].compareTo(inputUser) == 0))
-            {
-                if (list[1][a].compareTo(inputPass) == 0)
-                {
-                    //login successful
-                    System.out.println("User Found on row: "+a);
-                    return 1;
-                }else {
-                    //wrong password
-                    return 2;
-                }
-            }
-        }
-        return 3;
-    }
     public Account(String username, String password) {
         this.username = username;
         this.password = password;
@@ -133,7 +94,6 @@ public class Account extends Menu {
         * if false, then gawa ng txt file
         * tapos write info nalang ganun
          */
-        System.out.println("save account initialized");
         File x = new File("assets/Accounts/"+username+".csv");
         if (x.exists()){
             try{
@@ -141,11 +101,8 @@ public class Account extends Menu {
                 StringBuilder sb = new StringBuilder();
                 pw.write(sb.toString());
                 pw.close();
-            }catch (Exception e){
-                System.out.println("Error1");
-            }
+            }catch (Exception e){}
 
-            System.out.println("Account found: "+ username +" "+ password);
             BufferedWriter buffWriter = null;
             for (Employee employee : employees){
                 String out = employee.getName()+","+
@@ -179,23 +136,6 @@ public class Account extends Menu {
         }
     }
 
-    /*
-    name =
-    note =
-    insuranceType =
-    hourly =
-    hours =
-    monthly =
-    multiplier =
-    ohours =
-    totalSalary =
-    incomeTax =
-    totalTax =
-    insurance =
-    phil =
-    pgb =
-    netSalary =
-    */
     public void loadData() throws IOException {
         employees.clear();
         isLoadingData = true;
@@ -220,8 +160,10 @@ public class Account extends Menu {
                 empCount++;
                 i++;
             }
-        }catch (Exception e){}finally {reader.close();}
+            reader.close();
+        }catch (Exception e){}
         for (int a=0; a<empCount; a++){
+
             Employee x = new Employee(empData[a][0]);
             x.setNote(empData[a][1]);
             x.setHourlyRate(Double.parseDouble(empData[a][2]));
@@ -238,43 +180,7 @@ public class Account extends Menu {
             x.setPgb(Double.parseDouble(empData[a][13]));
             x.setNetSalary(Double.parseDouble(empData[a][14]));
             employees.add(x);
-        }
-    }
-    public boolean loadAccount() throws IOException {
-        /* TBA
-        gagamitin to ng register at login pages
 
-        if (file exists){
-            if (username.equals(usernameSaFile) && password.equals(passwordSaFile)){
-                code para maread lahat ng laman tapos ilagay sa tamang lalagyan :D
-                parang loadstats lang yan ng pokemon ig
-                return true;
-            }else{
-                return false; // para pag false dapat idisplay ng page "mali password / wala pong ganyang account"
-            }
-        }else{
-            return false;
-        }
-
-         */
-
-        switch (checkAccDatabase(username,password))
-        {
-            case 1: //login
-                System.out.println("LOGIN SUCCESSFUL");
-                loadData();
-                return true;
-            case 2: //wrong password
-                System.out.println("WRONG PASSWORD");
-                return false;
-            case 3: //new account
-                System.out.println("NEW ACCOUNT MADe");
-                newAccount(username,password);
-                loadData();
-                return true;
-            default:
-                System.out.println("DEPOLT");
-                return false;
         }
     }
 

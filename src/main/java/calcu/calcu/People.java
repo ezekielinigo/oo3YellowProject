@@ -33,32 +33,30 @@ public class People extends Menu{
     public peopleSegment controllerSegment; // used to call the functions inside peopleSegment
     @Override
     public void initialize() throws IOException { // keeps track of the profile previews to make them persistent
-        if (account.getisLoadingData()){
-            for (Employee employee : account.getEmployees()){
-                loadProfiles(employee);
-            }
-        }
-        account.setisLoadingData(false);
         // List out all employees
         if (container != null){
-            for (Employee employee: account.getEmployees()){
-                container.getChildren().add(employee.getProfile().getAnchorPane());
+            for (Employee employee : account.getEmployees()) {
+                // create a controller for an anchorpane fxml (with buttons and labels according to the values of "name", "note", and "monthlyrate")
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
+                Node newSegment = loader.load();
+                controllerSegment = loader.getController();
+
+                // set the values of the buttons and labels
+                controllerSegment.setName(employee.getName());
+                controllerSegment.setNote(employee.getNote());
+                controllerSegment.setMonthlyRate(employee.getMonthlySalary());
+
+                // add the anchor pane to the VBox
+                container.getChildren().add(newSegment);
+
+                // set up the other function buttons of the profile menu segment
+                ImageView delButton = (ImageView) newSegment.lookup("#button");
+                delButton.setOnMouseClicked(this::delProfile);
+                Label editButton = (Label) newSegment.lookup("#profileName");
+                editButton.setOnMouseClicked(this::editProfile);
+                employee.setProfile(controllerSegment);
             }
         }
-    }
-    public void loadProfiles(Employee employee) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("peopleSegment.fxml"));
-        Node newSegment = loader.load();
-        controllerSegment = loader.getController();
-
-        controllerSegment.create(employee.getName(), "PHP "+ employee.getNetSalary(), String.valueOf(employee.getHourlyRate()));
-        employee.setProfile(controllerSegment);
-
-        //container.getChildren().clear();
-        ImageView delButton = (ImageView) newSegment.lookup("#button");
-        delButton.setOnMouseClicked(this::delProfile);
-        Label editButton = (Label) newSegment.lookup("#profileName");
-        editButton.setOnMouseClicked(this::editProfile);
     }
     public void newProfile() throws IOException { // used to create a new profile incl. preview, info, etc.
         // set up profile menu segment (peopleSegment.fxml)

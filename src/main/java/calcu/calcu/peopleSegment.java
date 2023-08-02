@@ -53,4 +53,17 @@ public class peopleSegment extends Menu{
     }
 
 
+    public void setName(String name) {
+        this.profileName.setText(name);
+    }
+
+    public void setNote(String note) {
+        this.salaryTotal.setText(note);
+
+    }
+
+    public void setMonthlyRate(double monthlySalary) {
+        this.salaryType.setText(String.valueOf(monthlySalary));
+
+    }
 }
