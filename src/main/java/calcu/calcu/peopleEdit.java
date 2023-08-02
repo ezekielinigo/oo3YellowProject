@@ -13,6 +13,7 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
+import javax.sound.midi.SysexMessage;
 import java.awt.*;
 import java.io.IOException;
 import java.util.function.Function;
@@ -124,7 +125,7 @@ public class peopleEdit extends People{
         numericOnly(hours);
         numericOnly(multi);
         numericOnly(ohours);
-
+        numericOnly(monthly);
         update();
     }
     public void update(){
@@ -134,6 +135,21 @@ public class peopleEdit extends People{
         // (UNLESS MAGLAGAY KA NG TEMP VARIABLES BA D2 SA LOOB NG METHOD)
         // SAKA LANG MAGIGING FINAL YUNG CHANGES PAG PININDOT YUNG CHECK
         // (TAPOS NA TO CHECK SAVE() METHOD PERO IDK KUNG GUMAGANA KASI WALA PANG COMPUTATIONS)
+        double h = Double.parseDouble(hours.getText());
+        double m = Double.parseDouble(monthly.getText());
+        double w = Double.parseDouble(hourly.getText());
+        double mu = Double.parseDouble(multi.getText());
+        double oh = Double.parseDouble(ohours.getText());
+        System.out.println("=====");
+        System.out.println("wage[w] "+w);
+        System.out.println("Monthly[m] "+m);
+        System.out.println("Overtime Hours[oh] "+oh);
+        System.out.println("Normal Hours[h] "+h);
+        System.out.println("Multiplier[mu] "+mu);
+
+        double luto = (w*oh*mu)+(20*w*h);
+        totalSalary.setText(String.valueOf(luto));
+        monthly.setText(String.valueOf(20*w*h));
 
         if (insuranceType.getValue().equals("SSS")) {
             // ETO SSS COMPUTATIONS

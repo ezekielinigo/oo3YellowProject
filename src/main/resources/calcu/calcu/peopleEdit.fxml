@@ -22,7 +22,7 @@
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" prefWidth="210.0" text="EXPORT">
+            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" prefWidth="210.0" text="SUMMARY">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
@@ -76,7 +76,7 @@
                         <Label layoutX="34.0" layoutY="74.0" text="Wage" />
                         <TextField fx:id="hours" layoutX="95.0" layoutY="111.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="34.0" layoutY="115.0" text="Hours" />
-                        <TextField fx:id="monthly" layoutX="95.0" layoutY="153.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
+                        <TextField fx:id="monthly" editable="false" layoutX="95.0" layoutY="153.0" prefHeight="26.0" prefWidth="95.0" />
                         <Label layoutX="34.0" layoutY="157.0" text="Monthly" />
                         <Label layoutX="92.0" layoutY="21.0" text="HOURLY" textAlignment="CENTER">
                            <font>
