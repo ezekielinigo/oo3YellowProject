@@ -13,26 +13,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.peopleEdit">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" stylesheets="@social.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.peopleEdit">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="197.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#previous" prefWidth="210.0" text="PEOPLE">
+            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#previous" prefWidth="210.0" style="-fx-background-color: #f88501;" text="PEOPLE">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" prefWidth="210.0" text="SUMMARY">
+            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" prefWidth="210.0" style="-fx-background-color: #f88501;" text="SUMMARY">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" prefWidth="210.0" text="SETTINGS">
+            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" prefWidth="210.0" style="-fx-background-color: #f88501;" text="SETTINGS">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" prefWidth="210.0" text="QUIT">
+            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" prefWidth="210.0" style="-fx-background-color: #f88501;" text="QUIT">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
@@ -45,7 +45,7 @@
          <content>
             <VBox fx:id="container" prefHeight="478.0" prefWidth="428.0">
                <children>
-                  <AnchorPane fx:id="segment" prefHeight="67.0" prefWidth="423.0">
+                  <AnchorPane fx:id="segment" prefHeight="67.0" prefWidth="423.0" style="-fx-background-color: #f88501;">
                      <children>
                         <ImageView fx:id="icon" fitHeight="64.0" fitWidth="64.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -70,26 +70,26 @@
                      </children>
                   </AnchorPane>
                   <Separator prefWidth="200.0" />
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f88501;">
                      <children>
                         <TextField fx:id="hourly" layoutX="95.0" layoutY="70.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="34.0" layoutY="74.0" text="Wage" />
+                        <Label layoutX="34.0" layoutY="74.0" text="Wage" textFill="WHITE" />
                         <TextField fx:id="hours" layoutX="95.0" layoutY="111.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="34.0" layoutY="115.0" text="Hours" />
+                        <Label layoutX="34.0" layoutY="115.0" text="Hours" textFill="WHITE" />
                         <TextField fx:id="monthly" editable="false" layoutX="95.0" layoutY="153.0" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="34.0" layoutY="157.0" text="Monthly" />
-                        <Label layoutX="92.0" layoutY="21.0" text="HOURLY" textAlignment="CENTER">
+                        <Label layoutX="34.0" layoutY="157.0" text="Monthly" textFill="WHITE" />
+                        <Label layoutX="92.0" layoutY="21.0" text="HOURLY" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="26.0" />
                            </font>
                         </Label>
                         <TextField fx:id="multi" layoutX="285.0" layoutY="70.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="224.0" layoutY="74.0" text="Multiplier" />
+                        <Label layoutX="224.0" layoutY="74.0" text="Multiplier" textFill="WHITE" />
                         <TextField fx:id="ohours" layoutX="285.0" layoutY="111.0" onKeyTyped="#textUpdate" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="224.0" layoutY="115.0" text="Hours" />
+                        <Label layoutX="224.0" layoutY="115.0" text="Hours" textFill="WHITE" />
                         <TextField fx:id="totalSalary" editable="false" layoutX="285.0" layoutY="153.0" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: none;" />
-                        <Label layoutX="224.0" layoutY="157.0" text="Gross" />
-                        <Label layoutX="271.0" layoutY="21.0" text="OVERTIME" textAlignment="CENTER">
+                        <Label layoutX="224.0" layoutY="157.0" text="Gross" textFill="WHITE" />
+                        <Label layoutX="271.0" layoutY="21.0" text="OVERTIME" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="26.0" />
                            </font>
@@ -97,25 +97,25 @@
                      </children>
                   </AnchorPane>
                   <Separator prefWidth="200.0" />
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f88501;">
                      <children>
                         <TextField fx:id="insurance" editable="false" layoutX="95.0" layoutY="70.0" opacity="0.8" prefHeight="26.0" prefWidth="95.0" />
                         <TextField fx:id="pgb" editable="false" layoutX="95.0" layoutY="111.0" opacity="0.8" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="34.0" layoutY="115.0" text="PAG-IBIG" />
+                        <Label layoutX="34.0" layoutY="115.0" text="PAG-IBIG" textFill="WHITE" />
                         <TextField fx:id="phil" editable="false" layoutX="95.0" layoutY="153.0" opacity="0.8" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="34.0" layoutY="157.0" text="PhilHealth" />
-                        <Label layoutX="105.0" layoutY="21.0" text="GOV'T" textAlignment="CENTER">
+                        <Label layoutX="34.0" layoutY="157.0" text="PhilHealth" textFill="WHITE" />
+                        <Label layoutX="105.0" layoutY="21.0" text="GOV'T" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="26.0" />
                            </font>
                         </Label>
                         <TextField fx:id="incomeTax" editable="false" layoutX="285.0" layoutY="70.0" opacity="0.8" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="224.0" layoutY="74.0" text="Income" />
+                        <Label layoutX="224.0" layoutY="74.0" text="Income" textFill="WHITE" />
                         <TextField fx:id="totalTax" editable="false" layoutX="285.0" layoutY="111.0" opacity="0.8" prefHeight="26.0" prefWidth="95.0" />
-                        <Label layoutX="224.0" layoutY="115.0" text="Total" />
+                        <Label layoutX="224.0" layoutY="115.0" text="Total" textFill="WHITE" />
                         <TextField fx:id="totalFinal" editable="false" layoutX="285.0" layoutY="153.0" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: none;" />
-                        <Label layoutX="224.0" layoutY="157.0" text="Net" />
-                        <Label layoutX="308.0" layoutY="21.0" text="TAX" textAlignment="CENTER">
+                        <Label layoutX="224.0" layoutY="157.0" text="Net" textFill="WHITE" />
+                        <Label layoutX="308.0" layoutY="21.0" text="TAX" textAlignment="CENTER" textFill="WHITE">
                            <font>
                               <Font size="26.0" />
                            </font>

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="segment" prefHeight="67.0" prefWidth="423.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.peopleSegment">
+<AnchorPane fx:id="segment" prefHeight="67.0" prefWidth="423.0" stylesheets="@social.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.peopleSegment">
    <children>
       <ImageView fx:id="icon" fitHeight="64.0" fitWidth="64.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -18,12 +18,12 @@
             <Image url="@../../minus.png" />
          </image>
       </ImageView>
-      <Label fx:id="profileName" layoutX="89.0" layoutY="8.0" text="New Employee">
+      <Label fx:id="profileName" layoutX="89.0" layoutY="8.0" text="New Employee" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="salaryTotal" layoutX="95.0" layoutY="34.0" prefHeight="17.0" prefWidth="142.0" text="PHP 1,000.00" />
-      <Label fx:id="salaryType" layoutX="95.0" layoutY="49.0" prefHeight="17.0" prefWidth="144.0" text="Hourly" />
+      <Label fx:id="salaryTotal" layoutX="95.0" layoutY="34.0" prefHeight="17.0" prefWidth="142.0" text="PHP 1,000.00" textFill="WHITE" />
+      <Label fx:id="salaryType" layoutX="95.0" layoutY="49.0" prefHeight="17.0" prefWidth="144.0" text="Hourly" textFill="WHITE" />
    </children>
 </AnchorPane>

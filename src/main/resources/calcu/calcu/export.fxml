@@ -7,27 +7,27 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.Export">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" stylesheets="@social.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.Export">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="197.0" BorderPane.alignment="CENTER">
          <children>
             <Separator layoutX="210.0" layoutY="1.0" orientation="VERTICAL" prefHeight="480.0" prefWidth="2.0" />
-            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#showPeople" prefWidth="210.0" text="PEOPLE">
+            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#showPeople" prefWidth="210.0" style="-fx-background-color: #f88501;" text="PEOPLE">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" onAction="#showExport" prefWidth="210.0" text="SUMMARY">
+            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" onAction="#showExport" prefWidth="210.0" style="-fx-background-color: #f88501;" text="SUMMARY">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" onAction="#showSettings" prefWidth="210.0" text="SETTINGS">
+            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" onAction="#showSettings" prefWidth="210.0" style="-fx-background-color: #f88501;" text="SETTINGS">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" onAction="#showRegister" prefWidth="210.0" text="QUIT">
+            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" onAction="#showRegister" prefWidth="210.0" style="-fx-background-color: #f88501;" text="QUIT">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
@@ -38,14 +38,19 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="14.0" layoutY="38.0" prefHeight="45.0" prefWidth="248.0" text="Monthly Salary">
+            <Label layoutX="14.0" layoutY="38.0" prefHeight="47.0" prefWidth="128.0" text="Monthly" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Label>
-            <Label fx:id="grandTotal" layoutX="14.0" layoutY="90.0" text="PHP 0.00">
+            <Label fx:id="grandTotal" layoutX="14.0" layoutY="90.0" text="PHP 0.00" textFill="WHITE">
                <font>
                   <Font size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="150.0" layoutY="38.0" prefHeight="47.0" prefWidth="98.0" text="Salary" textFill="#f88501">
+               <font>
+                  <Font name="System Bold" size="32.0" />
                </font>
             </Label>
          </children>

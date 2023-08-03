@@ -11,27 +11,27 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.People">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" stylesheets="@social.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="calcu.calcu.People">
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="197.0" BorderPane.alignment="CENTER">
          <children>
             <Separator layoutX="210.0" layoutY="1.0" orientation="VERTICAL" prefHeight="480.0" prefWidth="2.0" />
-            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#showPeople" prefWidth="210.0" text="PEOPLE">
+            <Button fx:id="bPeople" layoutY="28.0" mnemonicParsing="false" onAction="#showPeople" prefWidth="210.0" style="-fx-background-color: #f88501;" text="PEOPLE">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" onAction="#showExport" prefWidth="210.0" text="SUMMARY">
+            <Button fx:id="bExport" layoutY="118.0" mnemonicParsing="false" onAction="#showExport" prefWidth="210.0" style="-fx-background-color: #f88501;" text="SUMMARY">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" onAction="#showSettings" prefWidth="210.0" text="SETTINGS">
+            <Button fx:id="bSettings" layoutY="298.0" mnemonicParsing="false" onAction="#showSettings" prefWidth="210.0" style="-fx-background-color: #f88501;" text="SETTINGS">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
             </Button>
-            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" onAction="#showRegister" prefWidth="210.0" text="QUIT">
+            <Button fx:id="bQuit" layoutY="388.0" mnemonicParsing="false" onAction="#showRegister" prefWidth="210.0" style="-fx-background-color: #f88501;" text="QUIT">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
@@ -40,11 +40,11 @@
       </AnchorPane>
    </left>
    <center>
-      <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="480.0" prefWidth="424.0" BorderPane.alignment="CENTER">
+      <ScrollPane hbarPolicy="NEVER" hmax="0.0" prefHeight="480.0" prefWidth="424.0" stylesheets="@orangeu.css" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="container" prefHeight="478.0" prefWidth="418.0">
+            <VBox fx:id="container" prefHeight="478.0" prefWidth="419.0" style="-fx-background-color: #f88501;">
                <children>
-                  <AnchorPane fx:id="segment" prefHeight="67.0" prefWidth="423.0">
+                  <AnchorPane fx:id="segment" prefHeight="67.0" prefWidth="423.0" style="-fx-background-color: #000000;">
                      <children>
                         <ImageView fx:id="icon" fitHeight="64.0" fitWidth="64.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -56,7 +56,7 @@
                               <Image url="@../../plus.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="profileName" layoutX="89.0" layoutY="8.0" onMouseClicked="#newProfile" text="New Employee">
+                        <Label fx:id="profileName" layoutX="89.0" layoutY="8.0" onMouseClicked="#newProfile" text="New Employee" textFill="WHITE">
                            <font>
                               <Font size="24.0" />
                            </font>

@@ -9,9 +9,9 @@ module calcu.calcu {
             requires net.synedra.validatorfx;
             requires org.kordamp.ikonli.javafx;
             requires org.kordamp.bootstrapfx.core;
-            requires eu.hansolo.tilesfx;
             requires com.almasb.fxgl.all;
-    
+    requires java.desktop;
+
     opens calcu.calcu to javafx.fxml;
     exports calcu.calcu;
     exports calcu.data;
