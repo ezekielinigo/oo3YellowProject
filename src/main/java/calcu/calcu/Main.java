@@ -5,8 +5,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 /*** GUIDE KASI MAKAKALIMUTIN AQ ***************************
@@ -48,6 +51,10 @@ public class Main extends Application {
         stage.setTitle("Money M8 (A Payroll Calculator)");
         stage.setScene(scene); // eto footnote 1
         stage.show();
+
+        Media sound = new Media(new File("src/main/resources/IntroSFX.mp3").toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.play();
     }
 
 

@@ -11,6 +11,7 @@ module calcu.calcu {
             requires org.kordamp.bootstrapfx.core;
             requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires javafx.media;
 
     opens calcu.calcu to javafx.fxml;
     exports calcu.calcu;
